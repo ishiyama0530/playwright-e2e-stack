@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/playwright:latest
+
+COPY ./web /app
+
+WORKDIR /app
+
+# https://github.com/vitejs/vite/discussions/15532#discussioncomment-8038794
+RUN rm -rf node_modules package-lock.json \
+    && npm cache clean --force \
+    && npm install
+
+CMD [ "bash", "-c", "npm run build && /bin/bash" ]

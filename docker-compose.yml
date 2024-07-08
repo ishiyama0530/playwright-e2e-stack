@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: e2e_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U admin -d mydb
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - mynetwork
+
+  server:
+    container_name: e2e_server
+    build:
+      context: ./
+      dockerfile: Dockerfile.server
+    environment:
+      - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mynetwork
+
+  test:
+    container_name: e2e_test
+    build:
+      context: ./
+      dockerfile: Dockerfile.test
+    environment:
+      - CI=${CI:-false}
+      - VITE_BASE_URL=http://server:3000
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    tty: true
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
