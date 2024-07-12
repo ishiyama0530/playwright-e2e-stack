@@ -9,9 +9,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: process.env.CI ? [["html", { open: "never" }]] : "html",
+  reporter: process.env.CI
+    ? [["html", { open: "never" }]]
+    : [["html", { host: "0.0.0.0", port: "9323", open: "always" }]],
+
   use: {
-    baseURL: "http://localhost:4173",
+    baseURL: "http://server:4173",
     trace: "on-first-retry",
   },
 
@@ -29,6 +32,6 @@ export default defineConfig({
   webServer: {
     command: "npm run preview",
     port: 4173,
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI,
   },
 });
