@@ -1,5 +1,7 @@
 name: Playwright Tests
 on:
+  push:
+    branches: ["main"]
   schedule:
     # 毎日 9:00 (JST)
     - cron: "0 0 * * *"
@@ -15,16 +17,22 @@ jobs:
         with:
           node-version: 20
 
-      - name: Server Setup
-        run: |
-          docker compose build
-          docker compose up -d
+      - name: docker compose build
+        run: docker compose build
+
+      - name: docker compose up
+        run: docker compose up -d
 
       - name: Wait for server to be ready
-        run: sleep 5
+        run: |
+          docker compose logs -f server &
+            while ! docker compose logs server | grep "Server is running on port 3000"; do
+              echo "Waiting for the database to be ready..."
+              sleep 5
+          done
 
       - name: Run Playwright tests
-        run: docker compose exec test bash -c 'npm run e2e'
+        run: docker compose exec test bash -c 'npx playwright test'
 
       - uses: actions/upload-artifact@v4
         if: always()

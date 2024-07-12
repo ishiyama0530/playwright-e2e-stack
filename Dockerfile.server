@@ -5,5 +5,7 @@ COPY ./server /app
 WORKDIR /app
 
 RUN npm ci
+RUN npx prisma generate 
+RUN npm run build
 
-CMD ["bash", "-c", "npm run migrate && npm run build && npm run start"]
+CMD ["bash", "-c", "npx prisma migrate deploy && npx prisma db seed && npm run start"]

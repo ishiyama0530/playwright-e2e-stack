@@ -1,12 +1,12 @@
-FROM mcr.microsoft.com/playwright:latest
+FROM mcr.microsoft.com/playwright:v1.45.1-jammy
+
+ENV VITE_BASE_URL=http://server:3000
 
 COPY ./web /app
 
 WORKDIR /app
 
-# https://github.com/vitejs/vite/discussions/15532#discussioncomment-8038794
-RUN rm -rf node_modules package-lock.json \
-    && npm cache clean --force \
-    && npm install
+RUN npm install
+RUN npm run build 
 
-CMD [ "bash", "-c", "npm run build && /bin/bash" ]
+CMD [ "bash", "-c", "/bin/bash" ]

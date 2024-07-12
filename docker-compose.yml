@@ -23,11 +23,6 @@ services:
       dockerfile: Dockerfile.server
     environment:
       - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public
-    volumes:
-      - ./server:/app
-      - /app/node_modules
-    ports:
-      - "3000:3000"
     depends_on:
       db:
         condition: service_healthy
@@ -40,11 +35,14 @@ services:
       context: ./
       dockerfile: Dockerfile.test
     environment:
-      - CI=${CI:-false}
-      - VITE_BASE_URL=http://server:3000
+      - CI=${CI}
     volumes:
-      - ./web:/app
-      - /app/node_modules
+      - ./web/playwright-report:/app/playwright-report
+      - ./web/test-results:/app/test-results
+      - ./web/tests/__snapshots__:/app/tests/__snapshots__
+      - ./web/playwright.config.ts:/app/playwright.config.ts
+    ports:
+      - "9323:9323"
     tty: true
     networks:
       - mynetwork
