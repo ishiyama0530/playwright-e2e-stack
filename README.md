@@ -3,7 +3,7 @@
 ## 🐛 for Local（E2E）
 
 ```bash
-VITE_BASE_URL=http://localhost:3000 docker-compose up -d
+docker-compose up -d
 docker compose exec test bash -c "npx playwright test"
 ```
 
