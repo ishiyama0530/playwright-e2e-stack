@@ -1,10 +1,17 @@
 # playwright-e2e-stack
 
-## 🐛 for Local
+## 🐛 for Local（E2E）
 
 ```bash
-docker compose up -d
-sh e2e-execute.sh
+VITE_BASE_URL=http://localhost:3000 docker-compose up -d
+docker compose exec test bash -c "npx playwright test"
+```
+
+## 🐝 for Local（VRT）
+
+```bash
+VITE_BASE_URL=http://localhost:3000 docker-compose up -d test
+docker compose exec test bash -c "npx playwright test -c playwright.config.vrt.ts"
 ```
 
 ## 🌈 GitHub Actions
