@@ -7,7 +7,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  test:
+  e2e:
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
