@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:latest
-    container_name: e2e_db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
@@ -17,7 +16,6 @@ services:
       - mynetwork
 
   server:
-    container_name: e2e_server
     build:
       context: ./
       dockerfile: Dockerfile.server
@@ -30,17 +28,19 @@ services:
       - mynetwork
 
   test:
-    container_name: e2e_test
     build:
       context: ./
       dockerfile: Dockerfile.test
+      args:
+        - VITE_BASE_URL=${VITE_BASE_URL:-http://server:3000}
     environment:
       - CI=${CI}
     volumes:
       - ./web/playwright-report:/app/playwright-report
       - ./web/test-results:/app/test-results
-      - ./web/tests/__snapshots__:/app/tests/__snapshots__
+      - ./web/tests:/app/tests
       - ./web/playwright.config.ts:/app/playwright.config.ts
+      - ./web/playwright.config.vrt.ts:/app/playwright.config.vrt.ts
     ports:
       - "9323:9323"
     tty: true

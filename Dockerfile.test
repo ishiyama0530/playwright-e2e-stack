@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/playwright:v1.45.1-jammy
 
-ENV VITE_BASE_URL=http://server:3000
+ARG VITE_BASE_URL
+
+ENV VITE_BASE_URL=$VITE_BASE_URL
 
 COPY ./web /app
 

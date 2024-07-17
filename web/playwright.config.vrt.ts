@@ -3,7 +3,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/e2e",
+  testDir: "./tests/vrt",
+  snapshotDir: "./tests/vrt/__snapshots__",
   testMatch: "*.spec.ts",
 
   fullyParallel: true,
@@ -30,9 +31,16 @@ export default defineConfig({
     },
   ],
 
-  webServer: {
-    command: "npm run preview",
-    port: 4173,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: "npm run mock",
+      port: 3000,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "npm run preview",
+      port: 4173,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });
