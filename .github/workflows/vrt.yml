@@ -1,4 +1,4 @@
-name: E2E VRT
+name: Visual Regression Testing
 on:
   push:
     branches: ["main"]
