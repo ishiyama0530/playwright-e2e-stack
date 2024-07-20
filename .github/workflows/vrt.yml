@@ -1,4 +1,4 @@
-name: VRT Tests
+name: E2E Tests
 on:
   push:
     branches: ["main"]
@@ -7,7 +7,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  vrt:
+  e2e:
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
@@ -18,13 +18,13 @@ jobs:
           node-version: 20
 
       - name: docker compose build
-        run: VITE_BASE_URL=http://localhost:3000 docker-compose build test
+        run: docker compose build
 
       - name: docker compose up
-        run: VITE_BASE_URL=http://localhost:3000 docker-compose up -d test
+        run: docker compose up -d
 
       - name: Run Playwright tests
-        run: docker compose exec test bash -c 'npx playwright test -c playwright.config.vrt.ts'
+        run: docker compose up -f docker-compose.vrt.yml up
 
       - uses: actions/upload-artifact@v4
         if: always()

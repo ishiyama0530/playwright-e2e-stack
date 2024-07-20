@@ -23,16 +23,8 @@ jobs:
       - name: docker compose up
         run: docker compose up -d
 
-      - name: Wait for server to be ready
-        run: |
-          docker compose logs -f server &
-            while ! docker compose logs server | grep "Server is running on port 3000"; do
-              echo "Waiting for the database to be ready..."
-              sleep 5
-          done
-
       - name: Run Playwright tests
-        run: docker compose exec test bash -c 'npx playwright test'
+        run: docker compose up
 
       - uses: actions/upload-artifact@v4
         if: always()
