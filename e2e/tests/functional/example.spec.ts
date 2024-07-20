@@ -9,7 +9,7 @@ test("api check", async ({ page }) => {
   await Promise.all([
     page.waitForResponse(
       (response) =>
-        response.url() === "http://server:3000/users" &&
+        response.url() === `${process.env.PLAYWRIGHT_API_URL}/users` &&
         response.status() === 200
     ),
     page.goto("/"),

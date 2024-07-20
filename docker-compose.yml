@@ -19,6 +19,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public
+      - WEB_ORIGIN=http://web
     ports:
       - "3000:3000"
     command: bash -c "npx prisma migrate deploy && npm start"
@@ -31,7 +32,7 @@ services:
       context: ./web
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=${VITE_API_URL:-http://server:3000}
+        - VITE_API_URL=http://server:3000
     ports:
       - "80:80"
 
@@ -42,6 +43,8 @@ services:
     environment:
       - CI=${CI}
       - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public
+      - PLAYWRIGHT_BASE_URL=http://web
+      - PLAYWRIGHT_API_URL=http://server:3000
     volumes:
       - ./e2e/test-results:/app/test-results
     ports:

@@ -14,7 +14,7 @@ export default defineConfig({
     : [["html", { host: "0.0.0.0", port: "9323", open: "always" }]],
 
   use: {
-    baseURL: "http://web",
+    baseURL: process.env.PLAYWRIGHT_BASE_URL,
     trace: "on-first-retry",
   },
 

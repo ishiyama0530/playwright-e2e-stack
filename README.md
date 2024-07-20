@@ -3,15 +3,13 @@
 ## 🐛 for Local（E2E）
 
 ```bash
-docker-compose up -d
-docker compose exec test bash -c "npx playwright test"
+docker compose up
 ```
 
 ## 🐝 for Local（VRT）
 
 ```bash
-VITE_API_URL=http://localhost:3000 docker-compose up -d test
-docker compose exec test bash -c "npx playwright test -c playwright.config.vrt.ts"
+docker compose up -f docker-compose.vrt.yml up
 ```
 
 ## 🌈 GitHub Actions
