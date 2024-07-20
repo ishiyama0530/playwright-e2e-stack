@@ -36,7 +36,7 @@ services:
     ports:
       - "80:80"
 
-  e2e:
+  test:
     build:
       context: ./
       dockerfile: ./e2e/Dockerfile.e2e

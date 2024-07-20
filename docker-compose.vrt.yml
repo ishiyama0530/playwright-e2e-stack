@@ -16,7 +16,7 @@ services:
       timeout: 3s
       retries: 5
 
-  e2e:
+  test:
     build:
       context: ./e2e
       dockerfile: Dockerfile.vrt
