@@ -24,7 +24,7 @@ jobs:
         run: docker compose up -d
 
       - name: Run Playwright tests
-        run: docker compose up
+        run: docker compose -f docker-compose.e2e.yml up
 
       - uses: actions/upload-artifact@v4
         if: always()

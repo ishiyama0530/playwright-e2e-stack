@@ -39,7 +39,7 @@ services:
   e2e:
     build:
       context: ./
-      dockerfile: ./e2e/Dockerfile
+      dockerfile: ./e2e/Dockerfile.e2e
     environment:
       - CI=${CI}
       - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public

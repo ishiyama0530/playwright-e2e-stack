@@ -9,7 +9,7 @@ docker compose up
 ## 🐝 for Local（VRT）
 
 ```bash
-docker compose up -f docker-compose.vrt.yml up
+docker compose -f docker-compose.vrt.yml up
 ```
 
 ## 🌈 GitHub Actions
