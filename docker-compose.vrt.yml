@@ -1,0 +1,32 @@
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://web:3000}
+    ports:
+      - "80:80"
+      - "3000:3000"
+    command: >
+      sh -c "npm run mock & npm start & wait"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  e2e:
+    build:
+      context: ./e2e
+      dockerfile: Dockerfile.vrt
+    environment:
+      - CI=${CI}
+    volumes:
+      - ./e2e/test-results:/app/test-results
+      - ./e2e/snapshots:/app/snapshots
+    ports:
+      - "9323:9323"
+    depends_on:
+      web:
+        condition: service_healthy

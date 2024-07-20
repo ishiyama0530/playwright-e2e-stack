@@ -1,9 +1,7 @@
-/// <reference types="node" />
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// E2Eとは別の用途のSeed
 async function main() {
   // Seed data for the User model
 
@@ -12,15 +10,15 @@ async function main() {
   if (count < 1) {
     const user1 = await prisma.user.create({
       data: {
-        name: "Oliver Thompson",
-        email: "oliver.t@yahoo.com",
+        name: "John Doe",
+        email: "john.doe@example.com",
       },
     });
 
     const user2 = await prisma.user.create({
       data: {
-        name: "Sophia Rodriguez",
-        email: "s.rodriguez@outlook.com",
+        name: "Jane Smith",
+        email: "jane.smith@example.com",
       },
     });
 

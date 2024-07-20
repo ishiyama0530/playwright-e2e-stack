@@ -1,9 +1,9 @@
-/// <reference types="node" />
-
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/e2e",
+  globalSetup: "./tests/functional/utils/globalSetup.ts",
+
+  testDir: "./tests/functional",
   testMatch: "*.spec.ts",
 
   fullyParallel: true,
@@ -15,7 +15,7 @@ export default defineConfig({
     : [["html", { host: "0.0.0.0", port: "9323", open: "always" }]],
 
   use: {
-    baseURL: "http://localhost:4173",
+    baseURL: "http://web",
     trace: "on-first-retry",
   },
 
@@ -29,10 +29,4 @@ export default defineConfig({
       use: { ...devices["Desktop Firefox"] },
     },
   ],
-
-  webServer: {
-    command: "npm run preview",
-    port: 4173,
-    reuseExistingServer: !process.env.CI,
-  },
 });

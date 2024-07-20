@@ -1,0 +1,13 @@
+{
+  "name": "e2e",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "vrt": "playwright test -c playwright-vrt.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "@prisma/client": "^5.16.1",
+    "@types/node": "^20.14.10"
+  }
+}

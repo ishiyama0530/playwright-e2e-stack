@@ -5,7 +5,7 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/playwright-e2e-stack/);
 });
 
-test("api success", async ({ page }) => {
+test("api check", async ({ page }) => {
   await Promise.all([
     page.waitForResponse(
       (response) =>

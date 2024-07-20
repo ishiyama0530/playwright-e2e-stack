@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/playwright:latest
+
+EXPOSE 80
+WORKDIR /app
+
+COPY package*.json .
+RUN npm ci
+
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
+COPY . .
+RUN npm run build 
+
+CMD ["npm", "start"]

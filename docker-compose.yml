@@ -9,44 +9,42 @@ services:
       - "5432:5432"
     healthcheck:
       test: pg_isready -U admin -d mydb
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    networks:
-      - mynetwork
+      interval: 3s
+      timeout: 3s
+      retries: 5
 
   server:
     build:
-      context: ./
-      dockerfile: Dockerfile.server
+      context: ./server
+      dockerfile: Dockerfile
     environment:
       - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public
+    ports:
+      - "3000:3000"
+    command: bash -c "npx prisma migrate deploy && npm start"
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - mynetwork
 
-  test:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://server:3000}
+    ports:
+      - "80:80"
+
+  e2e:
     build:
       context: ./
-      dockerfile: Dockerfile.test
-      args:
-        - VITE_BASE_URL=${VITE_BASE_URL:-http://server:3000}
+      dockerfile: ./e2e/Dockerfile
     environment:
       - CI=${CI}
+      - DATABASE_URL=postgresql://admin:password@db:5432/mydb?schema=public
     volumes:
-      - ./web/playwright-report:/app/playwright-report
-      - ./web/test-results:/app/test-results
-      - ./web/tests:/app/tests
-      - ./web/playwright.config.ts:/app/playwright.config.ts
-      - ./web/playwright.config.vrt.ts:/app/playwright.config.vrt.ts
+      - ./e2e/test-results:/app/test-results
     ports:
       - "9323:9323"
-    tty: true
-    networks:
-      - mynetwork
-
-networks:
-  mynetwork:
-    driver: bridge
+    depends_on:
+      - web

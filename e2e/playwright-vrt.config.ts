@@ -1,10 +1,8 @@
-/// <reference types="node" />
-
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/vrt",
-  snapshotDir: "./tests/vrt/__snapshots__",
+  testDir: "./tests/visual",
+  snapshotDir: "./snapshots",
   testMatch: "*.spec.ts",
 
   fullyParallel: true,
@@ -16,7 +14,7 @@ export default defineConfig({
     : [["html", { host: "0.0.0.0", port: "9323", open: "always" }]],
 
   use: {
-    baseURL: "http://localhost:4173",
+    baseURL: "http://web",
     trace: "on-first-retry",
   },
 
@@ -28,19 +26,6 @@ export default defineConfig({
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-    },
-  ],
-
-  webServer: [
-    {
-      command: "npm run mock",
-      port: 3000,
-      reuseExistingServer: !process.env.CI,
-    },
-    {
-      command: "npm run preview",
-      port: 4173,
-      reuseExistingServer: !process.env.CI,
     },
   ],
 });

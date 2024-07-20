@@ -10,7 +10,7 @@ docker compose exec test bash -c "npx playwright test"
 ## 🐝 for Local（VRT）
 
 ```bash
-VITE_BASE_URL=http://localhost:3000 docker-compose up -d test
+VITE_API_URL=http://localhost:3000 docker-compose up -d test
 docker compose exec test bash -c "npx playwright test -c playwright.config.vrt.ts"
 ```
 
