@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: docker compose build
-        run: docker compose -f docker-compose.vrt.yml build
+        run: docker compose -f ./web/docker-compose.vrt.yml build
 
       - name: Run Playwright tests
         run: docker compose -f ./web/docker-compose.vrt.yml up --abort-on-container-exit --exit-code-from vrt
