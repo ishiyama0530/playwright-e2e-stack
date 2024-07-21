@@ -1,5 +1,5 @@
 services:
-  web:
+  vrt:
     build:
       context: ./
       dockerfile: Dockerfile

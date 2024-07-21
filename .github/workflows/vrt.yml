@@ -7,7 +7,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  e2e:
+  vrt:
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
@@ -21,7 +21,7 @@ jobs:
         run: docker compose -f docker-compose.vrt.yml build
 
       - name: Run Playwright tests
-        run: docker compose -f ./web/docker-compose.vrt.yml up --abort-on-container-exit --exit-code-from test
+        run: docker compose -f ./web/docker-compose.vrt.yml up --abort-on-container-exit --exit-code-from vrt
 
       - uses: actions/upload-artifact@v4
         if: always()
