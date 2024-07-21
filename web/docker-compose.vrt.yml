@@ -2,7 +2,7 @@ services:
   vrt:
     build:
       context: ./
-      dockerfile: Dockerfile.vrt
+      dockerfile: Dockerfile.test
       args:
         - VITE_API_URL=http://localhost:3000
     environment:
