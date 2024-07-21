@@ -2,7 +2,7 @@ services:
   vrt:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.vrt
       args:
         - VITE_API_URL=http://localhost:3000
     environment:
@@ -15,5 +15,3 @@ services:
       - ./test-results:/app/test-results
       - ./snapshots:/app/snapshots
       - ./tests/:/app/tests
-    command: >
-      sh -c "npm test"

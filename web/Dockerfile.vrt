@@ -1,4 +1,4 @@
-FROM node:20
+FROM mcr.microsoft.com/playwright:latest
 
 EXPOSE 80
 WORKDIR /app
@@ -12,4 +12,4 @@ ENV VITE_API_URL=$VITE_API_URL
 COPY . .
 RUN npm run build 
 
-CMD ["npm", "start"]
+CMD ["npm", "test"]
