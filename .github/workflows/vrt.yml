@@ -29,3 +29,7 @@ jobs:
           name: playwright-report
           path: web/playwright-report/
           retention-days: 30
+
+      - name: Cleanup Docker resources
+        if: always()
+        run: docker-compose down --rmi all --volumes --remove-orphans
