@@ -12,6 +12,7 @@ services:
       - "3000:3000"
       - "9323:9323"
     volumes:
+      - ./playwright-report:/app/playwright-report
       - ./test-results:/app/test-results
       - ./snapshots:/app/snapshots
       - ./tests/:/app/tests
