@@ -2,8 +2,7 @@
   "name": "e2e",
   "version": "0.0.0",
   "scripts": {
-    "test": "playwright test",
-    "vrt": "playwright test -c playwright-vrt.config.ts"
+    "test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "latest",

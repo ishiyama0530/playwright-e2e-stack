@@ -2,18 +2,19 @@
 
 ## 🐛 for Local（E2E）
 
-```bash
+```sh
 $ docker compose -f docker-compose.e2e.yml up --build
 ```
 
 ## 🐝 for Local（VRT）
 
-```bash
-$ docker compose -f docker-compose.vrt.yml up --build
+```sh
+$ docker compose -f ./web/docker-compose.vrt.yml up --build
+
 ```
 
 ## 🌈 GitHub Actions
 
-```bash
+```sh
 0 0 * * * # 毎日 9:00 (JST)
 ```

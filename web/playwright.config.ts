@@ -1,8 +1,10 @@
+/// <reference types="node"/>
+
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/visual",
-  snapshotDir: "./snapshots",
+  snapshotDir: "./tests/visual/snapshots",
   testMatch: "*.spec.ts",
 
   fullyParallel: true,
@@ -14,7 +16,7 @@ export default defineConfig({
     : [["html", { host: "0.0.0.0", port: "9323", open: "always" }]],
 
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL,
+    baseURL: "http://localhost",
     trace: "on-first-retry",
   },
 
@@ -26,6 +28,19 @@ export default defineConfig({
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
+    },
+  ],
+
+  webServer: [
+    {
+      command: "npm start",
+      url: 'http://localhost',
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "npm run mock",
+      url: 'http://localhost:3000',
+      reuseExistingServer: !process.env.CI,
     },
   ],
 });

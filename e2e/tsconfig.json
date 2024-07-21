@@ -10,7 +10,6 @@
   "include": [
     "tests/**/*",
     "fixtures/**/*",
-    "playwright.config.ts",
-    "playwright-vrt.config.ts"
+    "playwright.config.ts"
   ]
 }
