@@ -15,5 +15,5 @@ test("api check", async ({ page }) => {
     page.goto("/"),
   ]);
 
-  await expect(page.getByText("john.doe@example.com")).toBeVisible();
+  await expect(page.getByText("xxxjohn.doe@example.com")).toBeVisible();
 });
