@@ -23,7 +23,7 @@ services:
     ports:
       - "3000:3000"
     command: >
-      "sh -c "npx prisma migrate deploy && npm start"
+      sh -c "npx prisma migrate deploy && npm start"
     depends_on:
       db:
         condition: service_healthy
