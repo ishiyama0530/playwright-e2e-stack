@@ -31,4 +31,4 @@ jobs:
 
       - name: Cleanup Docker resources
         if: always()
-        run: docker compose down --rmi all --volumes --remove-orphans
+        run: docker compose -f docker-compose.e2e.yml up down --rmi all --volumes --remove-orphans
