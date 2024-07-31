@@ -1,5 +1,7 @@
 name: Visual Regression Testing
+run-name: VRT By @${{ github.actor }}
 on:
+  workflow_dispatch:
   push:
     branches: ["main"]
   schedule:
@@ -29,4 +31,4 @@ jobs:
 
       - name: Cleanup Docker resources
         if: always()
-        run: docker compose down --rmi all --volumes --remove-orphans
+        run: docker compose -f ./web/docker-compose.vrt.yml down --rmi all --volumes --remove-orphans

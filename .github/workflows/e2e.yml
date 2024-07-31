@@ -1,5 +1,7 @@
 name: End-to-End Testing
+run-name: E2E Testing By @${{ github.actor }}
 on:
+  workflow_dispatch:
   push:
     branches: ["main"]
   schedule:
