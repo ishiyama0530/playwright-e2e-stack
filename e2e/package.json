@@ -5,7 +5,7 @@
     "test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "latest",
+    "@playwright/test": "^1.45.1",
     "@prisma/client": "^5.16.1",
     "@types/node": "^20.14.10"
   }

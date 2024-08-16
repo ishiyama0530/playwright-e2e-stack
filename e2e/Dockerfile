@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:latest
+FROM mcr.microsoft.com/playwright:v1.45.1-jammy 
 
 EXPOSE 9323
 WORKDIR /app
